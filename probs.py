@@ -93,6 +93,18 @@ def find_mood_behavior(mood, act):
 make_up = []
 make_up.append("Sunny")
 weather = ["Sunny", "Cloudy", "Rainy", "Storm"]
+co_behavior = []
+mood = ["Good", "Moderate", "Bad"]
+act = ["Picnic", "Exercise", "Homework", "Home"]
+temp_mood = random.choices(mood, weights=[0.7, 0.2, 0.1], k=1)[0]
+if temp_mood == "Good":
+    pos3 = [0.4, 0.3, 0.1, 0.2]
+elif temp_mood == "Moderate":
+    pos3 = [0.1, 0.3, 0.3, 0.3]
+else:
+    pos3 = [0, 0.2, 0.3, 0.5]
+co_behavior.append(random.choices(act, weights=pos3, k=1)[0])
+
 
 for x in range(999):
     last = make_up[len(make_up) - 1]
@@ -104,6 +116,41 @@ for x in range(999):
         pos = [0.15, 0.3, 0.4, 0.15]
     else:
         pos = [0.05, 0.2, 0.5, 0.25]
-    make_up.append(random.choices(weather, weights=pos, k=1))
+    chosen = random.choices(weather, weights=pos, k=1)[0]
+    make_up.append(chosen)
+    if chosen == "Sunny":
+        pos2 = [0.7, 0.2, 0.1]
+    elif chosen == "Cloudy":
+        pos2 = [0.4, 0.4, 0.2]
+    elif chosen == "Rainy":
+        pos2 = [0.2, 0.4, 0.4]
+    else:
+        pos2 = [0, 0.2, 0.8]
+    chosen_mood = random.choices(mood, weights=pos2, k=1)[0]
+    if chosen_mood == "Good":
+        pos3 = [0.4,0.3,0.1,0.2]
+    elif chosen_mood == "Moderate":
+        pos3 = [0.1, 0.3, 0.3, 0.3]
+    else:
+        pos3 = [0, 0.2, 0.3, 0.5]
+    co_behavior.append(random.choices(act, weights=pos3, k=1)[0])
+
 for i in make_up:
     print(i)
+print("-------------------------------------------")
+for i in co_behavior:
+    print(i)
+
+def calculateAccuracy(a, b):
+    if len(a) != len(b):
+        raise ValueError("input should have same length")
+    i = 0
+    correct = 0
+    while i < len(a):
+        i = i + 1
+        if (a[i] == b[i]):
+            correct += 1
+    return correct/i
+
+
+
